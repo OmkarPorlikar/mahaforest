@@ -50,30 +50,30 @@ const ForestGalleryDesign5 = () => {
       description: "Ongoing efforts to increase forest cover across various regions of India.",
       location: "Himachal Pradesh" 
     },
-    { 
-      id: 4, 
-      src: "https://mahaforest.gov.in/writereaddata/event_file/1717566785_event_file0.JPG", 
-      alt: "Tribal communities and forests", 
-      title: "Community Forest Management", 
-      description: "Working with indigenous communities for sustainable forest management.",
-      location: "Central India" 
-    },
-    { 
-      id: 5, 
-      src: "https://mahaforest.gov.in/writereaddata/event_file/1717566785_event_file2.JPG", 
-      alt: "Mangrove forests", 
-      title: "Coastal Ecosystem Protection", 
-      description: "Conservation of vital mangrove ecosystems along India's coastline.",
-      location: "Sundarbans" 
-    },
-    { 
-      id: 6, 
-      src: "https://mahaforest.gov.in/writereaddata/event_file/1717566785_event_file2.JPG", 
-      alt: "Himalayan forests", 
-      title: "Himalayan Forest Conservation", 
-      description: "Preserving the fragile forest ecosystems of the Himalayan region.",
-      location: "Uttarakhand" 
-    }
+    // { 
+    //   id: 4, 
+    //   src: "https://mahaforest.gov.in/writereaddata/event_file/1717566785_event_file0.JPG", 
+    //   alt: "Tribal communities and forests", 
+    //   title: "Community Forest Management", 
+    //   description: "Working with indigenous communities for sustainable forest management.",
+    //   location: "Central India" 
+    // },
+    // { 
+    //   id: 5, 
+    //   src: "https://mahaforest.gov.in/writereaddata/event_file/1717566785_event_file2.JPG", 
+    //   alt: "Mangrove forests", 
+    //   title: "Coastal Ecosystem Protection", 
+    //   description: "Conservation of vital mangrove ecosystems along India's coastline.",
+    //   location: "Sundarbans" 
+    // },
+    // { 
+    //   id: 6, 
+    //   src: "https://mahaforest.gov.in/writereaddata/event_file/1717566785_event_file2.JPG", 
+    //   alt: "Himalayan forests", 
+    //   title: "Himalayan Forest Conservation", 
+    //   description: "Preserving the fragile forest ecosystems of the Himalayan region.",
+    //   location: "Uttarakhand" 
+    // }
   ];
   
   const videos = [
@@ -120,12 +120,12 @@ const ForestGalleryDesign5 = () => {
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-2xl mx-auto text-center mb-12">
-          <h2 className="inline-block relative text-3xl font-bold text-green-900 mb-3">
-            <span className="absolute -left-6 top-0 text-4xl text-green-300 opacity-50">"</span>
+          <h2 className="inline-block relative text-3xl font-bold text-teal-900 mb-3">
+            <span className="absolute -left-6 top-0 text-4xl text-teal-300 opacity-50">"</span>
             Forest Stories
-            <span className="absolute -right-6 bottom-0 text-4xl text-green-300 opacity-50">"</span>
+            <span className="absolute -right-6 bottom-0 text-4xl text-teal-300 opacity-50">"</span>
           </h2>
-          <p className="text-green-700">Experience the natural heritage of India through our curated collection of visual stories</p>
+          <p className="text-teal-700">Experience the natural heritage of India through our curated collection of visual stories</p>
           
           {/* Leaf-inspired toggle */}
           <div className="relative inline-flex items-center mt-8 bg-white rounded-full p-1 shadow-sm border border-green-100">
@@ -134,12 +134,12 @@ const ForestGalleryDesign5 = () => {
               className={`relative px-6 py-2 rounded-full text-sm font-medium z-10 transition-all ${
                 activeTab === 'photos' 
                   ? 'text-white' 
-                  : 'text-green-700 hover:text-green-900'
+                  : 'text-teal-700 hover:text-green-900'
               }`}
             >
               Photos
               {activeTab === 'photos' && (
-                <span className="absolute inset-0 bg-green-600 rounded-full -z-10"></span>
+                <span className="absolute inset-0 bg-teal-600 rounded-full -z-10"></span>
               )}
             </button>
             <button 
