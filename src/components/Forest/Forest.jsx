@@ -37,13 +37,13 @@ const Forest = () => {
         <div className="w-full md:w-3/5 p-4 sm:p-6 md:p-8">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-3 sm:mb-4 flex items-center">
             <span className="w-1 sm:w-2 h-6 sm:h-8 bg-teal-500 mr-2 sm:mr-3 inline-block"></span>
-            WASHIM Forest Department
+            WASHIM Forest Division
           </h2>
           
           <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4">
             Globally as well as nationally, Forest Conservation is increasingly being viewed as a 
             powerful instrument in sequestering carbon and thereby offset adverse climate change.
-            The Maharashtra Forest Department is committed to preserving our state's rich biodiversity.
+            The Maharashtra Forest Division is committed to preserving our state's rich biodiversity.
           </p>
           
           <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-4">
@@ -53,7 +53,7 @@ const Forest = () => {
           </p>
           
           <p className="text-sm sm:text-base text-gray-700 mb-3 sm:mb-6">
-            Our department implements various conservation initiatives including Joint Forest Management (JFM), 
+            Our Division implements various conservation initiatives including Joint Forest Management (JFM), 
             ecotourism promotion, wildlife monitoring, habitat improvement, and community-based conservation 
             programs that benefit both forests and local communities.
           </p>
