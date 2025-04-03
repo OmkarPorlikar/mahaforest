@@ -1,31 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 const Header2 = () => {
   const [fontSize, setFontSize] = useState(16);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+
+  const servicesRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (servicesRef.current && !servicesRef.current.contains(event.target)) {
+        setServicesDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [servicesRef]);
+
   const changeFontSize = (newSize) => {
     setFontSize(newSize);
   };
-  
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+    if (!mobileMenuOpen) {
+      setMobileServicesOpen(false);
+    }
   };
-  
+
+  const toggleServicesDropdown = () => {
+    setServicesDropdownOpen(!servicesDropdownOpen);
+  };
+
+  const toggleMobileServices = () => {
+    setMobileServicesOpen(!mobileServicesOpen);
+  };
+
   return (
-    <header className="w-full bg-gradient-to-r from-green-900 to-green-700 text-white shadow-lg" style={{fontSize: `${fontSize}px`}}>
+    <header className="w-full bg-gradient-to-r from-green-900 to-green-700 text-white shadow-lg" style={{ fontSize: `${fontSize}px` }}>
       {/* Top bar with accessibility options and language */}
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center px-4 py-3">
         {/* Logo and title section */}
         <div className="flex items-center mb-3 lg:mb-0">
-          <img 
-            src="/assets/logo.png" 
-            alt="Maharashtra Forest Department Logo" 
+          <img
+            src="/assets/logo.png"
+            alt="Maharashtra Forest Division Logo"
             className="h-12 w-12 md:h-16 md:w-16 mr-2 md:mr-3"
           />
           <div className="flex flex-col">
             <span className="text-xs text-green-200">महाराष्ट्र वन विभाग महाराष्ट्र शासन</span>
-            <span className="text-base md:text-lg font-bold tracking-wide">WASHIM FOREST DEPARTMENT</span>
+            <span className="text-base md:text-lg font-bold tracking-wide">WASHIM FOREST DIVISION</span>
             <span className="text-xs text-green-200">Government of Maharashtra</span>
           </div>
         </div>
@@ -39,7 +68,7 @@ const Header2 = () => {
             <span className="text-green-500">|</span>
             <a href="#" className="text-xs hover:text-yellow-200 transition-colors">Screen Reader</a>
           </div>
-          
+
           {/* Font size controls */}
           {/* <div className="flex items-center bg-green-800 bg-opacity-50 rounded px-3 py-1">
             <button onClick={() => changeFontSize(14)} className="text-xs px-1 hover:text-yellow-200 transition-colors">A<sup>-</sup></button>
@@ -48,7 +77,7 @@ const Header2 = () => {
             <span className="text-green-500 mx-1">|</span>
             <button onClick={() => changeFontSize(18)} className="text-base px-1 hover:text-yellow-200 transition-colors">A<sup>+</sup></button>
           </div> */}
-          
+
           {/* Language dropdown */}
           <div className="relative">
             <select className="appearance-none bg-yellow-600 hover:bg-yellow-500 transition-colors text-white px-3 md:px-4 py-1 pr-8 rounded text-sm font-medium focus:outline-none border border-yellow-400">
@@ -68,7 +97,7 @@ const Header2 = () => {
       <div className="bg-gradient-to-r from-green-800 to-green-700 border-t border-green-600 border-b border-green-900">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center px-4 py-1">
           {/* Mobile hamburger menu */}
-          <button 
+          <button
             className="lg:hidden text-white hover:text-yellow-200 transition-colors p-2"
             onClick={toggleMobileMenu}
             aria-label="Toggle navigation menu"
@@ -77,7 +106,7 @@ const Header2 = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
             </svg>
           </button>
-          
+
           {/* Main navigation - desktop */}
           <nav className="hidden lg:block flex-grow" id="navigation">
             <ul className="flex flex-wrap justify-center lg:justify-start">
@@ -93,15 +122,43 @@ const Header2 = () => {
               <li>
                 <a href="#" className="inline-block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">GR</a>
               </li>
-              <li>
-                <a href="#" className="inline-block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">Subject</a>
+              {/* Services dropdown */}
+              <li ref={servicesRef} className="relative">
+                <button
+                  onClick={toggleServicesDropdown}
+                  className="inline-block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors focus:outline-none"
+                  aria-expanded={servicesDropdownOpen}
+                  aria-haspopup="true"
+                >
+                  <span className="flex items-center">
+                    Services
+                    <svg className={`ml-1 w-4 h-4 transition-transform ${servicesDropdownOpen ? 'transform rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </button>
+
+                {/* Desktop dropdown menu */}
+                {servicesDropdownOpen && (
+                  <div className="absolute left-0 z-10 mt-1 w-60 origin-top-left bg-white shadow-lg ring-1 ring-black ring-opacity-5 rounded-b-md">
+                  <div className="bg-teal-800 pl-4 border-t border-green-500">
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">Crop compensation and wildlife injuries</a>
+                      <hr className="border-green-500" />
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">FCA</a>
+                      <hr className="border-green-500" />
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">FRA</a>
+                      <hr className="border-green-500" />
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">NOC</a>
+                    </div>
+                  </div>
+                )}
               </li>
               <li>
                 <a href="#" className="inline-block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">Contact Us</a>
               </li>
             </ul>
           </nav>
-          
+
           {/* Mobile navigation */}
           {mobileMenuOpen && (
             <nav className="lg:hidden w-full mt-2" id="mobile-navigation">
@@ -118,8 +175,36 @@ const Header2 = () => {
                 <li className="w-full">
                   <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">GR</a>
                 </li>
+                {/* Mobile Services dropdown */}
                 <li className="w-full">
-                  <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">Subject</a>
+                  <button
+                    onClick={toggleMobileServices}
+                    className="flex justify-between items-center w-full px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors"
+                  >
+                    <span>Services</span>
+                    <svg
+                      className={`w-4 h-4 transition-transform ${mobileServicesOpen ? 'transform rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+
+                  {/* Mobile services submenu */}
+                  {mobileServicesOpen && (
+                    <div className="bg-teal-800 pl-4 border-t border-green-500">
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">Crop compensation and wildlife injuries</a>
+                      <hr className="border-green-500" />
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">FCA</a>
+                      <hr className="border-green-500" />
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">FRA</a>
+                      <hr className="border-green-500" />
+                      <a href="#" className="block border-l border-green-400 pl-4 pr-2 py-2 text-sm hover:bg-green-600">NOC</a>
+                    </div>
+                  )}
                 </li>
                 <li className="w-full">
                   <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">Contact Us</a>
@@ -127,7 +212,7 @@ const Header2 = () => {
               </ul>
             </nav>
           )}
-          
+
           {/* Toll number and search */}
           <div className="flex items-center mt-0">
             <div className="flex items-center mr-2 md:mr-3 bg-green-600 rounded px-2 md:px-3 py-1">
