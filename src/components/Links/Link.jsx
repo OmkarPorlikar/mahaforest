@@ -30,7 +30,6 @@ const Links = () => {
       image: "https://mahaforest.gov.in/assets/images/weblink5.png",
       url: "https://mahaforest.gov.in/assets/images/weblink5.png"
     },
- 
   ];
 
   const settings = {
@@ -67,21 +66,26 @@ const Links = () => {
   };
 
   return (
-    <div className="w-full py-8">
+    <div className="w-full py-8 bg-gray-100">
       <div className="container mx-auto px-4">
         <Slider {...settings}>
           {links.map((link, index) => (
-            <div key={index} className="flex  justify-center">
+            <div key={index} className="flex justify-center p-2">
               <a 
                 href={link.url} 
-                className="bg-white p-3 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+                className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col items-center"
                 aria-label={link.name}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <img 
                   src={link.image} 
                   alt={link.name} 
-                  className="h-12 md:h-16 w-auto object-contain" 
+                  className="h-16 md:h-20 w-auto object-contain" 
                 />
+                <span className="mt-2 text-sm text-gray-700 font-medium text-center">
+                  {link.name}
+                </span>
               </a>
             </div>
           ))}
