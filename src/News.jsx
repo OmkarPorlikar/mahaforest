@@ -47,7 +47,7 @@ const News = () => {
     : newsItems.filter(item => item.category === activeTab);
   
   return (
-    <div className='bg-teal-50 p-4'> 
+    <div className='bg-teal-50 p-2 lg:p-4 '> 
     <div className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 max-w-[100%] h-[500px] p-4 mx-auto my-[1rem]">
       {/* Header with forest background */}
       <div className="bg-green-700 text-white relative">
