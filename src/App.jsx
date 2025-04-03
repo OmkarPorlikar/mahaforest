@@ -24,12 +24,12 @@ function App() {
  {/* <HeroDesign4/> */}
  {/* <ForestDepartmentHero/> */}
  <Hero1/>
+  <News/>
  <Forest/>
  {/* <Events/> */}
  <Events1/>
  <Gallery/>
  <AppandLinks/>
-<News/>
 <Links/>
 <FooterVariantOne/>
 {/* <FooterVariantTwo/> */}
