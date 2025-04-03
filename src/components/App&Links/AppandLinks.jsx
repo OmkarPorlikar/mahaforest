@@ -1,6 +1,29 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { ChevronRight, ChevronDown, ExternalLink } from 'lucide-react';
 
 const AppandLink = () => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [expandedSection, setExpandedSection] = useState(null);
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setExpandedSection(null);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleSection = (section) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
+
   const applications = [
     { name: 'Intranet Portal', icon: 'M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm14 8V5H5v6h14zm0 2H5v6h14v-6zM8 9a1 1 0 100-2 1 1 0 000 2zm0 8a1 1 0 100-2 1 1 0 000 2z' },
     { name: 'GIS', icon: 'M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z' },
@@ -21,23 +44,44 @@ const AppandLink = () => {
   ];
 
   return (
-    <div className="w-full p-6 bg-gray-50">
-      <div className="grid grid-cols-4 gap-8">
+    <div className="w-full p-2 sm:p-4 md:p-6 lg:p-8 bg-teal-50">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8">
         {/* Applications Section */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden col-span-2">
-          <div className="bg-green-700 p-4">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          <div 
+            className={`bg-teal-700 p-4 flex justify-between items-center cursor-pointer ${isSmallScreen ? 'sticky top-0 z-10' : ''}`}
+            onClick={() => isSmallScreen && toggleSection('applications')}
+          >
             <h2 className="text-xl font-bold text-white">Applications</h2>
+            {isSmallScreen && (
+              expandedSection === 'applications' ? <ChevronDown className="text-white" /> : <ChevronRight className="text-white" />
+            )}
           </div>
-          <div className="p-5">
-            <div className="grid grid-cols-2 gap-4">
+          
+          <div className={`transition-all duration-300 overflow-hidden ${isSmallScreen && expandedSection !== 'applications' ? 'max-h-0' : 'max-h-screen p-3 sm:p-4 md:p-5'}`}>
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               {applications.map((app, index) => (
-                <div key={index} className="p-4 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow transition-all hover:border-green-300 cursor-pointer flex flex-col items-center">
-                  <div className="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div 
+                  key={index} 
+                  className={`p-3 sm:p-4 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow transition-all cursor-pointer flex flex-row sm:flex-col items-center ${
+                    hoveredItem === `app-${index}` ? 'border-teal-500 bg-teal-50 transform scale-105' : 'hover:border-green-300'
+                  }`}
+                  onMouseEnter={() => setHoveredItem(`app-${index}`)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full bg-teal-100 flex items-center justify-center mb-0 sm:mb-3 mr-3 sm:mr-0 flex-shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 md:h-7 md:w-7 text-teal-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d={app.icon} />
                     </svg>
                   </div>
-                  <span className="text-center font-medium text-gray-700">{app.name}</span>
+                  <div className={`flex items-center transition-all duration-300 ${
+                    hoveredItem === `app-${index}` ? 'sm:flex sm:items-center sm:mt-2' : 'sm:block sm:text-center'
+                  }`}>
+                    <span className="font-medium text-gray-700 text-sm sm:text-base">{app.name}</span>
+                    {hoveredItem === `app-${index}` && (
+                      <ExternalLink className="ml-2 h-4 w-4 text-teal-600 hidden sm:block" />
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -45,18 +89,41 @@ const AppandLink = () => {
         </div>
 
         {/* Important Links Section */}
-        <div className="bg-white rounded-xl shadow-md overflow-hidden col-span-2">
-          <div className="bg-green-700 p-4">
+        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+          <div 
+            className={`bg-teal-700 p-4 flex justify-between items-center cursor-pointer ${isSmallScreen ? 'sticky top-0 z-10' : ''}`}
+            onClick={() => isSmallScreen && toggleSection('links')}
+          >
             <h2 className="text-xl font-bold text-white">Important Links</h2>
+            {isSmallScreen && (
+              expandedSection === 'links' ? <ChevronDown className="text-white" /> : <ChevronRight className="text-white" />
+            )}
           </div>
-          <div className="p-5">
-            <div className="grid grid-cols-2 gap-4">
+          
+          <div className={`transition-all duration-300 overflow-hidden ${isSmallScreen && expandedSection !== 'links' ? 'max-h-0' : 'max-h-screen p-3 sm:p-4 md:p-5'}`}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               {links.map((link, index) => (
-                <div key={index} className="p-3 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow transition-all hover:border-green-300 cursor-pointer flex items-center gap-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d={link.icon} />
-                  </svg>
-                  <span className="font-medium text-gray-700">{link.name}</span>
+                <div 
+                  key={index} 
+                  className={`p-3 rounded-lg bg-white border border-gray-200 shadow-sm hover:shadow transition-all cursor-pointer flex items-center gap-3 ${
+                    hoveredItem === `link-${index}` ? 'border-teal-500 bg-teal-50 transform scale-105' : 'hover:border-green-300'
+                  }`}
+                  onMouseEnter={() => setHoveredItem(`link-${index}`)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <div className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                    hoveredItem === `link-${index}` ? 'bg-teal-500' : 'bg-teal-100'
+                  } transition-colors duration-300`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${
+                      hoveredItem === `link-${index}` ? 'text-white' : 'text-green-700'
+                    }`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={link.icon} />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-gray-700 text-sm sm:text-base flex-1">{link.name}</span>
+                  {hoveredItem === `link-${index}` && (
+                    <ExternalLink className="h-4 w-4 text-teal-600 ml-auto" />
+                  )}
                 </div>
               ))}
             </div>
