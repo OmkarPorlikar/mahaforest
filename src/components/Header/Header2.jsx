@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 
 const Header2 = () => {
   const [fontSize, setFontSize] = useState(16);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const changeFontSize = (newSize) => {
     setFontSize(newSize);
+  };
+  
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
   
   return (
@@ -12,22 +17,22 @@ const Header2 = () => {
       {/* Top bar with accessibility options and language */}
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row justify-between items-center px-4 py-3">
         {/* Logo and title section */}
-        <div className="flex items-center mb-3 md:mb-0">
-        <img 
+        <div className="flex items-center mb-3 lg:mb-0">
+          <img 
             src="/assets/logo.png" 
             alt="Maharashtra Forest Department Logo" 
-            className="h-16 w-16 mr-3"
+            className="h-12 w-12 md:h-16 md:w-16 mr-2 md:mr-3"
           />
           <div className="flex flex-col">
             <span className="text-xs text-green-200">महाराष्ट्र वन विभाग महाराष्ट्र शासन</span>
-            <span className="text-lg font-bold tracking-wide">MAHARASHTRA FOREST DEPARTMENT</span>
+            <span className="text-base md:text-lg font-bold tracking-wide">WASHIM FOREST DEPARTMENT</span>
             <span className="text-xs text-green-200">Government of Maharashtra</span>
           </div>
         </div>
 
         {/* Accessibility controls */}
         <div className="flex flex-wrap justify-center lg:justify-end items-center gap-2">
-          <div className="flex space-x-3 text-green-100 bg-green-800 bg-opacity-50 rounded px-3 py-1">
+          <div className="hidden sm:flex space-x-3 text-green-100 bg-green-800 bg-opacity-50 rounded px-3 py-1">
             <a href="#content" className="text-xs hover:text-yellow-200 transition-colors">Skip to Content</a>
             <span className="text-green-500">|</span>
             <a href="#navigation" className="text-xs hover:text-yellow-200 transition-colors">Skip to Navigation</a>
@@ -36,17 +41,17 @@ const Header2 = () => {
           </div>
           
           {/* Font size controls */}
-          <div className="flex items-center bg-green-800 bg-opacity-50 rounded px-3 py-1">
+          {/* <div className="flex items-center bg-green-800 bg-opacity-50 rounded px-3 py-1">
             <button onClick={() => changeFontSize(14)} className="text-xs px-1 hover:text-yellow-200 transition-colors">A<sup>-</sup></button>
             <span className="text-green-500 mx-1">|</span>
             <button onClick={() => changeFontSize(16)} className="text-sm px-1 hover:text-yellow-200 transition-colors">A</button>
             <span className="text-green-500 mx-1">|</span>
             <button onClick={() => changeFontSize(18)} className="text-base px-1 hover:text-yellow-200 transition-colors">A<sup>+</sup></button>
-          </div>
+          </div> */}
           
           {/* Language dropdown */}
           <div className="relative">
-            <select className="appearance-none bg-yellow-600 hover:bg-yellow-500 transition-colors text-white px-4 py-1 pr-8 rounded text-sm font-medium focus:outline-none border border-yellow-400">
+            <select className="appearance-none bg-yellow-600 hover:bg-yellow-500 transition-colors text-white px-3 md:px-4 py-1 pr-8 rounded text-sm font-medium focus:outline-none border border-yellow-400">
               <option>English</option>
               <option>Marathi</option>
             </select>
@@ -62,8 +67,19 @@ const Header2 = () => {
       {/* Navigation bar */}
       <div className="bg-gradient-to-r from-green-800 to-green-700 border-t border-green-600 border-b border-green-900">
         <div className="max-w-6xl mx-auto flex flex-wrap justify-between items-center px-4 py-1">
-          {/* Main navigation */}
-          <nav className="flex-grow">
+          {/* Mobile hamburger menu */}
+          <button 
+            className="lg:hidden text-white hover:text-yellow-200 transition-colors p-2"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle navigation menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
+          
+          {/* Main navigation - desktop */}
+          <nav className="hidden lg:block flex-grow" id="navigation">
             <ul className="flex flex-wrap justify-center lg:justify-start">
               <li className="relative">
                 <a href="#" className="inline-block px-4 py-2 text-sm font-medium bg-green-600 border-b-2 border-yellow-400 rounded-t text-white">Home</a>
@@ -86,16 +102,42 @@ const Header2 = () => {
             </ul>
           </nav>
           
+          {/* Mobile navigation */}
+          {mobileMenuOpen && (
+            <nav className="lg:hidden w-full mt-2" id="mobile-navigation">
+              <ul className="flex flex-col w-full">
+                <li className="w-full">
+                  <a href="#" className="block px-4 py-2 text-sm font-medium bg-green-600 border-l-2 border-yellow-400 text-white">Home</a>
+                </li>
+                <li className="w-full">
+                  <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">About Us</a>
+                </li>
+                <li className="w-full">
+                  <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">RTS Act</a>
+                </li>
+                <li className="w-full">
+                  <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">GR</a>
+                </li>
+                <li className="w-full">
+                  <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">Subject</a>
+                </li>
+                <li className="w-full">
+                  <a href="#" className="block px-4 py-2 text-sm font-medium hover:bg-green-600 hover:text-white transition-colors">Contact Us</a>
+                </li>
+              </ul>
+            </nav>
+          )}
+          
           {/* Toll number and search */}
-          <div className="flex items-center mt-2 lg:mt-0">
-            <div className="flex items-center mr-3 bg-green-600 rounded px-3 py-1">
-              <svg className="w-4 h-4 mr-1 text-yellow-200" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <div className="flex items-center mt-0">
+            <div className="flex items-center mr-2 md:mr-3 bg-green-600 rounded px-2 md:px-3 py-1">
+              <svg className="w-3 h-3 md:w-4 md:h-4 mr-1 text-yellow-200" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
               </svg>
-              <span className="text-sm font-medium">Toll: 1926</span>
+              <span className="text-xs md:text-sm font-medium">Toll: 1926</span>
             </div>
-            <button className="bg-yellow-600 hover:bg-yellow-500 transition-colors p-2 rounded">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <button className="bg-yellow-600 hover:bg-yellow-500 transition-colors p-1 md:p-2 rounded">
+              <svg className="w-3 h-3 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"></path>
               </svg>
             </button>
