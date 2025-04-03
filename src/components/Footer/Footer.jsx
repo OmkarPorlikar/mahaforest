@@ -27,7 +27,7 @@ const FooterVariantOne = () => {
           </div>
           <div className="flex items-center gap-2">
             <FaMapMarkerAlt className="text-green-200" />
-            <span>Maharashtra Forest Department, Mumbai</span>
+            <span>Washim Forest Division, India</span>
           </div>
         </div>
 
@@ -44,7 +44,7 @@ const FooterVariantOne = () => {
         </div>
 
         <div className="text-sm text-gray-300">
-          © Maharashtra Forest Department | Maintained by NIC<br />
+          © Washim Forest Division | Maintained by NIC<br />
           Last updated on: 02/04/2025
         </div>
       </div>
@@ -71,7 +71,7 @@ const FooterVariantTwo = () => {
           <h3 className="text-lg font-bold mb-4">Contact</h3>
           <p><FaPhone className="inline mr-2" /> +91 XXXX XXXX XX</p>
           <p><FaEnvelope className="inline mr-2" /> contact@mahaforest.gov.in</p>
-          <p><FaMapMarkerAlt className="inline mr-2" /> Maharashtra Forest Department, Mumbai</p>
+          <p><FaMapMarkerAlt className="inline mr-2" /> Washim Forest Division, Mumbai</p>
         </div>
       </div>
     </footer>
@@ -84,7 +84,7 @@ const FooterVariantThree = () => {
       <div className="container mx-auto flex flex-wrap justify-between">
         <div className="w-full md:w-1/3 mb-6 md:mb-0">
           <h3 className="text-lg font-bold">About Us</h3>
-          <p className="text-sm text-gray-200 mt-2">Maharashtra Forest Department is committed to protecting and conserving forests and wildlife.</p>
+          <p className="text-sm text-gray-200 mt-2">Washim Forest Division is committed to protecting and conserving forests and wildlife.</p>
         </div>
         <div className="w-full md:w-1/3 mb-6 md:mb-0">
           <h3 className="text-lg font-bold">Quick Links</h3>
@@ -111,7 +111,7 @@ const FooterVariantFour = () => {
   return (
     <footer className="w-full bg-gradient-to-r from-green-900 to-green-600 text-white py-6">
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <p className="text-sm text-center md:text-left">© Maharashtra Forest Department, Government of Maharashtra</p>
+        <p className="text-sm text-center md:text-left">© Washim Forest Division, Government of Washim</p>
         <div className="flex space-x-4">
           <a href="#" className="hover:text-green-200"><FaFacebook size={20} /></a>
           <a href="#" className="hover:text-green-200"><FaTwitter size={20} /></a>
